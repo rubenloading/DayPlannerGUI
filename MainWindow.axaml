@@ -1,0 +1,39 @@
+<Window
+    x:Class="DayPlannerGUI.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="400"
+    Height="400"
+    Title="DayPlanner">
+
+    <StackPanel Margin="20" Spacing="10">
+
+        <TextBlock Text="DayPlanner" FontSize="20"/>
+
+        <TextBox x:Name="TaskInput"
+                 Watermark="Task, dd.MM.yyyy"/>
+
+        <Button Content="Add Task"
+                Click="AddTask_Click"/>
+
+        <Button Content="Show Today"
+                Click="ShowToday_Click"/>
+
+        <Button Content="Show All Tasks"
+                Click="ShowAllTasks_Click"/>
+        
+        <ListBox x:Name="TaskList"/>
+
+        <TextBlock x:Name="NoTasksMessage" IsVisible="False" FontStyle="Italic" Foreground="Gray"/>
+
+        <!-- Delete Button -->
+        <Button Content="Delete Selected Task"
+                Click="DeleteTask_Click"/>
+        
+        <!-- Complete Button -->
+        <Button Content="Mark as Completed"
+                Click="MarkCompleted_Click"/>
+
+    </StackPanel>
+
+</Window>

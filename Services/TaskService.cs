@@ -13,19 +13,22 @@ public class TaskService
         string[] parts = input.Split(',');
 
         if (parts.Length != 2)
+        {
             return;
+        }
+            
 
         string taskText = parts[0].Trim();
         string dateInput = parts[1].Trim();
 
-        if (!DateTime.TryParseExact(dateInput, "dd.MM.yyyy",
-            CultureInfo.InvariantCulture,
-            DateTimeStyles.None,
-            out DateTime taskDate))
+        if (!DateTime.TryParseExact(dateInput, "dd.MM.yyyy", CultureInfo.InvariantCulture,DateTimeStyles.None,out DateTime taskDate))
+        {
             return;
+        }
+           
+            
 
-        File.AppendAllText(filePath,
-            $"{taskText},{taskDate:dd.MM.yyyy}{Environment.NewLine}");
+        File.AppendAllText(filePath,$"{taskText},{taskDate:dd.MM.yyyy}{Environment.NewLine}");
     }
 
     public List<string> GetTodayTasks()
@@ -72,22 +75,34 @@ public class TaskService
     public void CompleteTask(int index)
     {
         if (!File.Exists(filePath))
-            return; 
+        {
+            return;
+        }
+        
 
         var tasks = File.ReadAllLines(filePath).ToList();
 
         if (index < 0 || index >= tasks.Count)
-            return; 
+        {
+            return;
+        }
+            
         
         if(!tasks[index].StartsWith("[COMPLETED] "))
+        {
             tasks[index] = "[COMPLETED] " + tasks[index];
+        }
+            
         File.WriteAllLines(filePath, tasks);
     }
 
     public void CleanOldCompletedTasks()
     {
         if (!File.Exists(filePath))
-            return;
+        {
+            return; 
+        }
+            
 
         var tasks = File.ReadAllLines(filePath).ToList();
         var filteredTasks = new List<string>();
@@ -97,18 +112,18 @@ public class TaskService
             if (task.StartsWith("[COMPLETED] "))
             {
                 var parts = task.Split(',');
-                if (parts.Length >= 2 && DateTime.TryParseExact(parts[parts.Length - 1], "dd.MM.yyyy",
-                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime taskDate))
+                if (parts.Length >= 2 && DateTime.TryParseExact(parts[parts.Length - 1], "dd.MM.yyyy",CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime taskDate))
+                    
                 {
                     if (taskDate.Date >= DateTime.Now.AddDays(-1).Date)
                     {
                         filteredTasks.Add(task);
                     }
-                    // else: don't add, so it's deleted
+                    
                 }
                 else
                 {
-                    // if can't parse, keep it
+                    
                     filteredTasks.Add(task);
                 }
             }

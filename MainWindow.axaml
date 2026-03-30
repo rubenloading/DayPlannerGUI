@@ -26,11 +26,11 @@
 
         <TextBlock x:Name="NoTasksMessage" IsVisible="False" FontStyle="Italic" Foreground="Gray"/>
 
-        <!-- Delete Button -->
+        
         <Button Content="Delete Selected Task"
                 Click="DeleteTask_Click"/>
         
-        <!-- Complete Button -->
+        
         <Button Content="Mark as Completed"
                 Click="MarkCompleted_Click"/>
 

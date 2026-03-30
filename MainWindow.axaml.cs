@@ -5,8 +5,8 @@ using Avalonia.Markup.Xaml;
 
 namespace DayPlannerGUI
 {
-public partial class MainWindow : Window
-{
+    public partial class MainWindow : Window
+    {
     private TaskService service = new TaskService();
     private List<string> currentTasks = new List<string>();
     public MainWindow()
